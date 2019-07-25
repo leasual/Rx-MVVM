@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:minHeight="50dp">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="50dp">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:textSize="@dimen/titleSize"
             android:textColor="@android:color/black"
             android:id="@+id/tv_desc"/>
@@ -16,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:textSize="@dimen/contentSize"
             android:layout_below="@+id/tv_desc"
             android:id="@+id/tv_type"/>
@@ -26,10 +30,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:paddingLeft="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:textSize="@dimen/contentSize"
             android:layout_below="@+id/tv_desc"
             android:id="@+id/tv_date"/>
-
+    <View
+            android:id="@+id/v_divider"
+            android:background="#e0e0e0"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"/>
 </RelativeLayout>
