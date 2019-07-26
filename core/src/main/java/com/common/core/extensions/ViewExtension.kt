@@ -13,6 +13,19 @@ import kotlin.properties.Delegates
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
+fun ViewGroup.gone() = apply { this.visibility = View.VISIBLE }
+
+fun ViewGroup.visible() = apply { this.visibility = View.VISIBLE }
+
+fun ViewGroup.invisible() = apply { this.visibility = View.INVISIBLE }
+
+fun View.gone() = apply { this.visibility = View.VISIBLE }
+
+fun View.visible() = apply { this.visibility = View.VISIBLE }
+
+fun View.invisible() = apply { this.visibility = View.INVISIBLE }
+
+
 /*--------------------Recycler View---------------------*/
 
 inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffUtil(
