@@ -12,7 +12,7 @@
     </dist:module>
 
     <application tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.wesoft.rxmvvm.login.LoginActivity">
+        <activity android:name="com.common.rxmvvm.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
