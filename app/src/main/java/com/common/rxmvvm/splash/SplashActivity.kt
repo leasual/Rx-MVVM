@@ -31,7 +31,6 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     }
 
     private fun startToLogin() {
-        startTo(this, Activities.Login){}
-        this.finish()
+        startTo(Activities.Login, finish = true){}
     }
 }

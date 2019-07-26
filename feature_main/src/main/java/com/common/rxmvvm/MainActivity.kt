@@ -37,9 +37,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun gotoDetail(url: String) {
-        startTo(this, Activities.WebView) {
+        startTo(Activities.WebView) {
             putExtra("url", url)
         }
-        this.finish()
     }
 }

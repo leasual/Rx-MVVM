@@ -43,7 +43,6 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     private fun gotoMain() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show()
-        startTo(this, Activities.Main){}
-        this.finish()
+        startTo(Activities.Main, finish = true){}
     }
 }
