@@ -1,4 +1,4 @@
-package com.common.rxmvvm.base
+package com.common.core.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

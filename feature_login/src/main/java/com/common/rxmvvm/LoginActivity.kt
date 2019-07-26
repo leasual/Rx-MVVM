@@ -1,29 +1,34 @@
 package com.common.rxmvvm
 
 import android.widget.Toast
-import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
-import com.common.mvvm.login.R
-import com.common.rxmvvm.base.ActivityLaunchHelper
-import com.common.rxmvvm.base.BaseActivity
-import com.common.rxmvvm.base.extension.disposedBag
-import com.common.rxmvvm.login.LoginViewModel
+import com.common.core.base.BaseActivity
+import com.common.core.extensions.disposedBag
+import com.common.rxmvvm.di.loginModule
+import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding3.widget.textChanges
+import com.wesoft.mvvm.login.R
 import kotlinx.android.synthetic.main.activity_login.*
 
-//private val loadLoginModule by lazy { loadKoinModules(loginModule) }
+import org.koin.core.context.loadKoinModules
+
+private val loadLoginModule by lazy { loadKoinModules(loginModule) }
 
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
-//    override fun initKoinModule() = loadLoginModule
+    override fun initKoinModule() = loadLoginModule
+
+    override fun setupViews() {
+
+    }
 
     override fun bindingViews() {
         val output = viewModel.transforms(
             LoginViewModel.Inputs(
-                RxTextView.textChanges(et_user).map { it.toString() },
-                RxTextView.textChanges(et_password).map { it.toString() },
-                RxView.clicks(bt_login)
+                et_user.textChanges().map { it.toString() },
+                et_password.textChanges().map { it.toString() },
+                bt_login.clicks()
             )
         )
 
@@ -38,7 +43,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     private fun gotoMain() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show()
-        ActivityLaunchHelper.launchMain(this, null, null)
+        startTo(this, Activities.Main){}
         this.finish()
     }
 }

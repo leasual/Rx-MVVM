@@ -5,25 +5,15 @@
           package="com.wesoft.mvvm.login">
 
     <dist:module
-            dist:instant="true"
+            dist:instant="false"
             dist:onDemand="false"
             dist:title="@string/title_login">
         <dist:fusing dist:include="true"/>
     </dist:module>
 
     <application tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.common.rxmvvm.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-                <data android:host="gank.io" />
-                <data android:path="/login"/>
-            </intent-filter>
-        </activity>
+        <activity android:name="com.common.rxmvvm.LoginActivity"
+        android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
-package com.common.rxmvvm.main
+package com.common.rxmvvm
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.common.rxmvvm.R
+import com.common.core.models.FeedData
 import com.common.core.extensions.basicDiffUtil
 import com.common.core.extensions.inflate
-import com.common.core.base.FeedData
+import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.listitem_feed.view.*
 
 class FeedAdapter(private val listener: (FeedData) -> Unit): RecyclerView.Adapter<FeedAdapter.ViewHolder>() {

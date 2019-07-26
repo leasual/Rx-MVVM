@@ -1,4 +1,4 @@
-package com.common.rxmvvm.base
+package com.common.core.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -15,7 +15,7 @@ abstract class BaseActivity<VM: BaseViewModel>: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        initKoinModule()
+        initKoinModule()
         setContentView(getLayoutId())
         setupViews()
         bindingViews()
@@ -28,7 +28,7 @@ abstract class BaseActivity<VM: BaseViewModel>: AppCompatActivity() {
 
     abstract fun bindingViews()
 
-//    abstract fun initKoinModule()
+    abstract fun initKoinModule()
 
     override fun onDestroy() {
         super.onDestroy()

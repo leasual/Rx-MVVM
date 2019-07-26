@@ -1,4 +1,4 @@
-package com.common.core.base
+package com.common.core.models
 
 import com.google.gson.annotations.SerializedName
 

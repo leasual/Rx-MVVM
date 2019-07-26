@@ -1,18 +1,21 @@
 package com.common.rxmvvm.splash
 
-import com.common.rxmvvm.R
-import com.common.rxmvvm.base.BaseActivity
+import com.common.core.base.BaseActivity
 import com.common.core.extensions.disposedBag
-import com.common.core.extensions.startActivity
-import com.common.rxmvvm.login.LoginActivity
+import com.common.rxmvvm.Activities
+import com.common.rxmvvm.R
+import com.common.rxmvvm.splashModule
+import com.common.rxmvvm.startTo
+import org.koin.core.context.loadKoinModules
 
-//private val loadSplashModule by lazy { loadKoinModules(splashModule) }
+
+private val loadSplashModule by lazy { loadKoinModules(splashModule) }
 
 class SplashActivity : BaseActivity<SplashViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.activity_splash
 
-//    override fun initKoinModule() = loadSplashModule
+    override fun initKoinModule() = loadSplashModule
 
     override fun setupViews() {
 
@@ -28,7 +31,7 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     }
 
     private fun startToLogin() {
-        startActivity<LoginActivity> {  }
+        startTo(this, Activities.Login){}
         this.finish()
     }
 }

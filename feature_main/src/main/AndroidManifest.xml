@@ -5,25 +5,17 @@
           package="com.wesoft.mvvm.main">
 
     <dist:module
-            dist:instant="true"
+            dist:instant="false"
             dist:onDemand="false"
             dist:title="@string/title_feature_main">
         <dist:fusing dist:include="true"/>
     </dist:module>
 
     <application tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.common.rxmvvm.main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-                <data android:host="gank.io" />
-                <data android:path="/main" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.common.rxmvvm.MainActivity"
+        android:screenOrientation="portrait"/>
+        <activity android:name="com.common.rxmvvm.WebViewActivity"
+        android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

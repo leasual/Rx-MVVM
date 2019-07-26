@@ -1,6 +1,6 @@
 package com.common.rxmvvm.splash
 
-import com.common.rxmvvm.base.BaseViewModel
+import com.common.core.base.BaseViewModel
 import com.common.core.extensions.disposedBag
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable

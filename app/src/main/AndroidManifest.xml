@@ -13,8 +13,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name="com.common.rxmvvm.main.WebViewActivity">
-        </activity>
         <activity
                 android:name="com.common.rxmvvm.splash.SplashActivity"
                 android:screenOrientation="portrait">
@@ -24,12 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name="com.common.rxmvvm.main.MainActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name="com.common.rxmvvm.login.LoginActivity"
-                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

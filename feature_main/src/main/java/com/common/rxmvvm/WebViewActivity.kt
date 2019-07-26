@@ -1,4 +1,4 @@
-package com.common.rxmvvm.main
+package com.common.rxmvvm
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -7,14 +7,19 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.common.rxmvvm.R
-import com.common.rxmvvm.base.BaseActivity
+import com.common.core.base.BaseActivity
+import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.activity_web_view.*
+
+//private val loadMainModule by lazy { loadKoinModules(mainModule) }
 
 class WebViewActivity : BaseActivity<WebViewModel>() {
 
     private lateinit var url: String
+
     override fun getLayoutId(): Int = R.layout.activity_web_view
+
+    override fun initKoinModule() = Unit//loadMainModule
 
     override fun setupViews() {
         url = intent.getStringExtra("url")
@@ -22,7 +27,7 @@ class WebViewActivity : BaseActivity<WebViewModel>() {
     }
 
     override fun bindingViews() {
-
+        viewModel.refreshWebView()
     }
 
     @SuppressLint("SetJavaScriptEnabled")

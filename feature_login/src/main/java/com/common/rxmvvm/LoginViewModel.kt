@@ -1,11 +1,11 @@
 package com.common.rxmvvm
 
 import android.util.Log
-import com.common.rxmvvm.base.BaseViewModel
-import com.common.rxmvvm.base.extension.disposedBag
-import com.common.rxmvvm.base.extension.takeWhen
-import com.common.core.repository.LoginRepository
+import com.common.core.base.BaseViewModel
+import com.common.core.extensions.disposedBag
+import com.common.rxmvvm.repository.LoginRepository
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.PublishSubject
 
@@ -14,7 +14,7 @@ class LoginViewModel(private val repository: LoginRepository): BaseViewModel() {
     data class Inputs (
         var userName: Observable<String>,
         var password: Observable<String>,
-        var login: Observable<Any>
+        var login: Observable<Unit>
     )
 
     data class Outputs  (
@@ -39,10 +39,10 @@ class LoginViewModel(private val repository: LoginRepository): BaseViewModel() {
             user && pwd
         }.distinctUntilChanged()
 
-        userNamePassword
-            .compose(takeWhen(inputs.login))
+        inputs.login
+            .withLatestFrom(userNamePassword, BiFunction<Unit, Boolean, Boolean> { _ , correct  -> correct })
             .subscribe {
-                if (it as Boolean) { login(loginSuccess) }
+                if (it as Boolean) { loginSuccess.onNext(true)/*login(loginSuccess)*/ }
                 description.onNext(error)
             }
             .disposedBag(dispose)
@@ -53,13 +53,8 @@ class LoginViewModel(private val repository: LoginRepository): BaseViewModel() {
     private fun login(loginSuccess: PublishSubject<Boolean>) {
         repository.getTodayList()
             .subscribe(
-                {
-                    Log.d("test", "data= ${it.data.androidList.size}")
-                    loginSuccess.onNext(true)
-                },
-                {
-                    Log.e("test", "error= ${it.message}")
-                })
+                { loginSuccess.onNext(true) },
+                { Log.e("test", "error= ${it.message}") })
             .disposedBag(dispose)
     }
 }
