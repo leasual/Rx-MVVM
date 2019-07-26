@@ -107,6 +107,16 @@ widget  自定义控件
       然后复写 override fun initKoinModule() = loadMainModule
       即注入完成。 
       其他非入口类的复写override fun initKoinModule() = Unit
+
+3.根据项目数据结构修改BaseResponse
+
+        data class BaseResponse<T>(
+            @SerializedName("error") var code: Boolean,
+            @SerializedName("results") var data: T
+        )
+  同时会涉及到NetworkBoundResource的一些对应修改，根据修改BaseResponse后对应修改即可。
+  
+#### 三、开发中常用库整理
       
  [Koin](https://github.com/InsertKoinIO/koin)
  
@@ -120,7 +130,7 @@ widget  自定义控件
       
  [Retrofit](https://github.com/square/retrofit)
  
- 开发常用库整理
+ 开发常用库积累
  
  ![image](android_common_libs.png)
 
