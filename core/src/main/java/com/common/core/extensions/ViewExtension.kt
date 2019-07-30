@@ -29,7 +29,7 @@ fun View.invisible() = apply { this.visibility = View.INVISIBLE }
 /*--------------------Recycler View---------------------*/
 
 inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffUtil(
-    initialValue: List<T>,
+    initialValue: MutableList<T>,
     crossinline areItemsTheSame: (T, T) -> Boolean = { old, new -> old == new },
     crossinline areContentsTheSame: (T, T) -> Boolean = { old, new -> old == new }
 ) =

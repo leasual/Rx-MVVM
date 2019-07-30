@@ -11,8 +11,8 @@ class SingleItemAdapter<T> (private val layoutId: Int, val bindItem: (itemView: 
                             areItemsTheSame: ((T, T) -> Boolean) = { _, _ -> false }, areContentsTheSame: ((T, T) -> Boolean) = { _, _ -> false })
     : RecyclerView.Adapter<SingleItemAdapter<T>.RecyclerViewHolder>() {
 
-    var dataList: List<T> by basicDiffUtil(
-        emptyList(),
+    var dataList: MutableList<T> by basicDiffUtil(
+        arrayListOf(),
         areItemsTheSame = areItemsTheSame,
         areContentsTheSame = areContentsTheSame
     )

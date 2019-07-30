@@ -13,11 +13,11 @@ class MainViewModel(private val repository: MainRepository): BaseViewModel() {
         var refresh: Observable<Unit>
     )
     data class Outputs(
-        var feedList: PublishSubject<List<Any>>
+        var feedList: PublishSubject<MutableList<Any>>
     )
 
     fun transforms(inputs: Inputs): Outputs {
-        val feedList = PublishSubject.create<List<Any>>()
+        val feedList = PublishSubject.create<MutableList<Any>>()
         val dataList = arrayListOf<Any>()
         inputs.refresh
             .startWith(Unit)

@@ -3,16 +3,16 @@ package com.common.rxmvvm
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.common.core.models.FeedData
 import com.common.core.extensions.basicDiffUtil
 import com.common.core.extensions.inflate
+import com.common.core.models.FeedData
 import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.listitem_feed.view.*
 
 class FeedAdapter(private val listener: (FeedData) -> Unit): RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
 
-    var feedList: List<FeedData> by basicDiffUtil(
-        emptyList(),
+    var feedList: MutableList<FeedData> by basicDiffUtil(
+        arrayListOf(),
         areItemsTheSame = {old, new -> old.id == new.id }
     )
 

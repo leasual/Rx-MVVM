@@ -1,8 +1,7 @@
 package com.common.rxmvvm
 
 import com.common.core.base.BaseActivity
-import com.common.core.base.MultiItem2Adapter
-import com.common.core.base.MultiItemAdapter
+import com.common.core.base.CommonAdapter
 import com.common.core.base.SingleItemAdapter
 import com.common.core.extensions.disposedBag
 import com.common.core.models.FeedData
@@ -18,7 +17,7 @@ private val loadMainModule by lazy { loadKoinModules(mainModule) }
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
-    private lateinit var adapter: MultiItemAdapter
+    private lateinit var adapter: CommonAdapter
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
@@ -37,7 +36,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun initFeedList() {
-        adapter = multiAdapter
+        adapter = multiItem2Adapter2
         rv_feed.adapter = adapter
         srl_swipe.isRefreshing = true
     }
@@ -55,38 +54,36 @@ class MainActivity : BaseActivity<MainViewModel>() {
         old.id == new.id
     })
 
-    private val multiAdapter = MultiItemAdapter({
-        when (it) {
-            is FeedData -> R.layout.listitem_feed
-            is String -> R.layout.listitem_title
-            else -> R.layout.listitem_feed
-        }
-    }, { itemView, model, _ ->
-        if (model is FeedData) {
-            itemView.tv_desc.text = model.desc
-            itemView.tv_type.text = model.type
-            itemView.tv_date.text = model.publishedAt
-        }else if (model is String) {
-            itemView.tv_title.text = model
-        }
-    }, { model, _ ->
-        if (model is FeedData) {
-            gotoDetail(model.url)
-        }
-    })
-
-    private val multiItem2Adapter = MultiItem2Adapter(arrayListOf(R.layout.listitem_title, R.layout.listitem_feed),
-        arrayListOf(String::class, FeedData::class), { itemView, model, _ ->
-            if (model is FeedData) {
-                itemView.tv_desc.text = model.desc
-                itemView.tv_type.text = model.type
-                itemView.tv_date.text = model.publishedAt
-            }else if (model is String) {
-                itemView.tv_title.text = model
+    //多个
+    private val multiItemAdapter = CommonAdapter(arrayOf(R.layout.listitem_title, R.layout.listitem_feed),
+        arrayOf(String::class.java, FeedData::class.java), { itemView, model, _ ->
+            when (model) {
+                is FeedData -> {
+                    itemView.tv_desc.text = model.desc
+                    itemView.tv_type.text = model.type
+                    itemView.tv_date.text = model.publishedAt
+                }
+                is String -> itemView.tv_title.text = model
             }
         }, { model, _ ->
-            if (model is FeedData) {
-                gotoDetail(model.url)
+            when (model) {
+                is FeedData -> gotoDetail(model.url)
+            }
+        })
+
+    //单个
+    private val multiItem2Adapter2 = CommonAdapter(arrayOf(R.layout.listitem_feed),
+        arrayOf(FeedData::class.java), { itemView, model, _ ->
+            when (model) {
+                is FeedData -> {
+                    itemView.tv_desc.text = model.desc
+                    itemView.tv_type.text = model.type
+                    itemView.tv_date.text = model.publishedAt
+                }
+            }
+        }, { model, _ ->
+            when (model) {
+                is FeedData -> gotoDetail(model.url)
             }
         })
 
