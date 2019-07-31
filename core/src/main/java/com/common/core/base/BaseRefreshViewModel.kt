@@ -3,12 +3,14 @@ package com.common.core.base
 
 import android.util.Log
 import com.common.core.extensions.disposedBag
+import com.kennyc.view.MultiStateView
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
 
 abstract class BaseRefreshViewModel: BaseViewModel() {
 
     open val dataListPublishSubject = PublishSubject.create<MutableList<Any>>()
+    open val multiStateViewPublishSubject = PublishSubject.create<MultiStateView.ViewState>()
     private val refreshStatePublishSubject = PublishSubject.create<RefreshState>()
     private val refreshPublishSubject = PublishSubject.create<Int>()
     protected var currentPage = 1
@@ -49,6 +51,11 @@ abstract class BaseRefreshViewModel: BaseViewModel() {
                     dataList.addAll(it.data)
                     dataListPublishSubject.onNext(dataList)
                     refreshStatePublishSubject.onNext(RefreshState.REFRESH_SUCCESS)
+                    if (it.data.isEmpty()) {
+                        multiStateViewPublishSubject.onNext(MultiStateView.ViewState.EMPTY)
+                    }else {
+                        multiStateViewPublishSubject.onNext(MultiStateView.ViewState.CONTENT)
+                    }
                 }else {
                     dataList.addAll(it.data)
                     if (it.data.size <= 10) {
@@ -64,6 +71,7 @@ abstract class BaseRefreshViewModel: BaseViewModel() {
                 }else {
                     refreshStatePublishSubject.onNext(RefreshState.LOAD_MORE_SUCCESS)
                 }
+                multiStateViewPublishSubject.onNext(MultiStateView.ViewState.ERROR)
                 Log.e("test", "onError")
                 it.printStackTrace()
             }).disposedBag(dispose)

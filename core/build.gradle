@@ -30,6 +30,10 @@ android {
 
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -37,6 +41,8 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.0.2'
     api 'androidx.recyclerview:recyclerview:1.0.0'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    //recycler view state view
+    api  'com.github.Kennyc1012:MultiStateView:2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

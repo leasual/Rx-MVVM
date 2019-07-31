@@ -3,6 +3,7 @@ package com.common.core.base
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.RecyclerView
 import com.common.core.extensions.disposedBag
+import com.kennyc.view.MultiStateView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
@@ -12,6 +13,7 @@ import io.reactivex.subjects.PublishSubject
 abstract class BaseRefreshActivity<VM: BaseRefreshViewModel>: BaseActivity<VM>() {
     private lateinit var smartRefreshLayout: SmartRefreshLayout
     private lateinit var recyclerView: RecyclerView
+    private var multiStateView: MultiStateView? = null
     private var putToRefreshPublishSubject = PublishSubject.create<Boolean>()
     private var loadMorePublishSubject = PublishSubject.create<Boolean>()
 
@@ -19,9 +21,20 @@ abstract class BaseRefreshActivity<VM: BaseRefreshViewModel>: BaseActivity<VM>()
         configPullToRefreshAndLoadMore()
         smartRefreshLayout = bindRefreshLayout()
         recyclerView = bindRecyclerViewLayout()
+        multiStateView = bindMultiStateView()
         //是否禁止下拉刷新
         if (onlyLoadMore()) {
             smartRefreshLayout.setEnableRefresh(false)
+        }
+        showMultiStateView()
+    }
+
+    private fun showMultiStateView() {
+        if (null == multiStateView) {
+            return
+        }
+        multiStateView!!.getView(MultiStateView.ViewState.ERROR)?.setOnClickListener {
+            putToRefreshPublishSubject.onNext(true)
         }
     }
 
@@ -60,11 +73,18 @@ abstract class BaseRefreshActivity<VM: BaseRefreshViewModel>: BaseActivity<VM>()
             (recyclerView.adapter as CommonAdapter).dataList = it
             (recyclerView.adapter as CommonAdapter).notifyDataSetChanged()
         }.disposedBag(dispose)
+
+        viewModel.multiStateViewPublishSubject.subscribe {
+            multiStateView?.viewState = it
+        }.disposedBag(dispose)
     }
 
     abstract fun bindRecyclerViewLayout(): RecyclerView
 
     abstract fun bindRefreshLayout(): SmartRefreshLayout
+
+    //列表显示 网络错误 空界面 正在加载
+    open fun bindMultiStateView(): MultiStateView? = null
 
     //是否只有上拉加载更多
     open fun onlyLoadMore(): Boolean = false
