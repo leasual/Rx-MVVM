@@ -37,4 +37,7 @@ object Activities {
     object WebView: AddressableActivity {
         override val className: String = "$packageName.WebViewActivity"
     }
+    object SmartRefresh: AddressableActivity {
+        override val className: String = "$packageName.SmartRefreshActivity"
+    }
 }

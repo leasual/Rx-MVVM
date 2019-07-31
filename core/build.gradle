@@ -71,4 +71,9 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
     api "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
     api 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+
+    //Pull to Refresh Layout 1.1.0 androidx 版本
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-15'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-15'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
 }

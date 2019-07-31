@@ -9,8 +9,8 @@ import com.common.core.extensions.basicDiffUtil
 class CommonAdapter(private val layoutIds: Array<Int>, private val modelTypes: Array<Class<*>>,
                     val bindItem: (itemView: View, model: Any, position: Int) -> Unit,
                     private val onItemClick: ((model: Any, position: Int) -> Unit),
-                    areItemsTheSame: ((Any, Any) -> Boolean) = { _, _ -> false },
-                    areContentsTheSame: ((Any, Any) -> Boolean) = { _, _ -> false })
+                    areItemsTheSame: ((Any, Any) -> Boolean) = { _, _ -> true },
+                    areContentsTheSame: ((Any, Any) -> Boolean) = { _, _ -> true })
     : RecyclerView.Adapter<CommonAdapter.RecyclerViewHolder>() {
 
     var dataList: MutableList<Any> by basicDiffUtil(

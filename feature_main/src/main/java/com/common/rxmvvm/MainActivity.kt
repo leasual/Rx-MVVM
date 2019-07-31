@@ -2,7 +2,6 @@ package com.common.rxmvvm
 
 import com.common.core.base.BaseActivity
 import com.common.core.base.CommonAdapter
-import com.common.core.base.SingleItemAdapter
 import com.common.core.extensions.disposedBag
 import com.common.core.models.FeedData
 import com.common.rxmvvm.di.mainModule
@@ -36,23 +35,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun initFeedList() {
-        adapter = multiItem2Adapter2
+        adapter = multiItemAdapter
         rv_feed.adapter = adapter
         srl_swipe.isRefreshing = true
     }
-
-    private val singleAdapter = SingleItemAdapter<FeedData>(R.layout.listitem_feed, {
-            itemView, model, _ ->
-        itemView.tv_desc.text = model.desc
-        itemView.tv_type.text = model.type
-        itemView.tv_date.text = model.publishedAt
-    }, {
-            model, _ ->
-        gotoDetail(model.url)
-    }, {
-            old, new ->
-        old.id == new.id
-    })
 
     //多个
     private val multiItemAdapter = CommonAdapter(arrayOf(R.layout.listitem_title, R.layout.listitem_feed),
@@ -64,22 +50,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
                     itemView.tv_date.text = model.publishedAt
                 }
                 is String -> itemView.tv_title.text = model
-            }
-        }, { model, _ ->
-            when (model) {
-                is FeedData -> gotoDetail(model.url)
-            }
-        })
-
-    //单个
-    private val multiItem2Adapter2 = CommonAdapter(arrayOf(R.layout.listitem_feed),
-        arrayOf(FeedData::class.java), { itemView, model, _ ->
-            when (model) {
-                is FeedData -> {
-                    itemView.tv_desc.text = model.desc
-                    itemView.tv_type.text = model.type
-                    itemView.tv_date.text = model.publishedAt
-                }
             }
         }, { model, _ ->
             when (model) {
