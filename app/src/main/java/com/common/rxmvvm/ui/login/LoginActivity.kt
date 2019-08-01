@@ -1,23 +1,20 @@
-package com.common.rxmvvm
+package com.common.rxmvvm.ui.login
 
 import android.widget.Toast
 import com.common.core.base.BaseActivity
 import com.common.core.extensions.disposedBag
-import com.common.rxmvvm.di.loginModule
+import com.common.core.extensions.startTo
+import com.common.rxmvvm.Activities
+import com.common.rxmvvm.R
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
-import com.wesoft.mvvm.login.R
 import kotlinx.android.synthetic.main.activity_login.*
 
-import org.koin.core.context.loadKoinModules
-
-private val loadLoginModule by lazy { loadKoinModules(loginModule) }
 
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
-    override fun initKoinModule() = loadLoginModule
 
     override fun setupViews() {
 

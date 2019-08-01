@@ -1,26 +1,23 @@
-package com.common.rxmvvm
+package com.common.rxmvvm.ui.main
 
 import com.common.core.base.BaseActivity
 import com.common.core.base.CommonAdapter
 import com.common.core.extensions.disposedBag
+import com.common.core.extensions.startTo
+import com.common.rxmvvm.Activities
+import com.common.rxmvvm.R
 import com.common.rxmvvm.models.FeedData
-import com.common.rxmvvm.di.mainModule
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
-import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.listitem_feed.view.*
 import kotlinx.android.synthetic.main.listitem_title.view.*
-import org.koin.core.context.loadKoinModules
 
-private val loadMainModule by lazy { loadKoinModules(mainModule) }
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
     private lateinit var adapter: CommonAdapter
 
     override fun getLayoutId(): Int = R.layout.activity_main
-
-    override fun initKoinModule() = loadMainModule
 
     override fun setupViews() {
         initFeedList()

@@ -26,10 +26,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-
-    dynamicFeatures = [":feature_login", ":feature_main"]
-
-
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.common.rxmvvm.splash
+package com.common.rxmvvm.ui.splash
 
 import com.common.core.base.BaseViewModel
 import com.common.core.extensions.disposedBag

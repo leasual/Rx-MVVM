@@ -6,6 +6,25 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.widget.Toast
 import androidx.annotation.DimenRes
+import androidx.fragment.app.Fragment
+import com.common.core.utils.AddressableActivity
+
+fun Activity.startTo(addressableActivity: AddressableActivity, requestCode: Int = 0, finish: Boolean = false, body: Intent.() -> Unit) {
+    when (requestCode) {
+        0 -> {
+            this.startActivity(Intent().setClassName(packageName, addressableActivity.className).apply(body))
+            if (finish) { this.finish() }
+        }
+        else -> this.startActivityForResult(Intent().setClassName(packageName, addressableActivity.className).apply(body), requestCode)
+    }
+}
+
+fun Fragment.startTo(addressableActivity: AddressableActivity, requestCode: Int = 0, body: Intent.() -> Unit) {
+    when (requestCode) {
+        0 -> this.startActivity(Intent().setClassName(context!!.packageName, addressableActivity.className).apply(body))
+        else -> this.startActivityForResult(Intent().setClassName(context!!.packageName, addressableActivity.className).apply(body), requestCode)
+    }
+}
 
 inline fun <reified T : Activity> Context.intentFor(body: Intent.() -> Unit): Intent =
     Intent(this, T::class.java).apply(body)

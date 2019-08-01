@@ -1,4 +1,4 @@
-package com.common.rxmvvm
+package com.common.rxmvvm.ui.main
 
 import com.common.core.base.BaseRefreshViewModel
 import com.common.core.base.BaseResponse

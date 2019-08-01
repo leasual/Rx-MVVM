@@ -1,17 +1,13 @@
-package com.common.rxmvvm
+package com.common.rxmvvm.ui.main
 
 import androidx.recyclerview.widget.RecyclerView
 import com.common.core.base.BaseRefreshActivity
 import com.common.core.base.CommonAdapter
-import com.common.rxmvvm.di.mainModule
+import com.common.rxmvvm.R
 import com.common.rxmvvm.models.FeedData
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.activity_smart_refresh.*
 import kotlinx.android.synthetic.main.listitem_feed.view.*
-import org.koin.core.context.loadKoinModules
-
-private val loadMainModule by lazy { loadKoinModules(mainModule) }
 
 class SmartRefreshActivity : BaseRefreshActivity<SmartRefreshViewModel>() {
 
@@ -20,8 +16,6 @@ class SmartRefreshActivity : BaseRefreshActivity<SmartRefreshViewModel>() {
     override fun bindRecyclerViewLayout(): RecyclerView = rv_feed
 
     override fun getLayoutId(): Int = R.layout.activity_smart_refresh
-
-    override fun initKoinModule() = loadMainModule
 
 
     override fun setupViews() {

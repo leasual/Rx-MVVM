@@ -15,7 +15,6 @@ abstract class BaseActivity<VM: BaseViewModel>: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initKoinModule()
         setContentView(getLayoutId())
         setupViews()
         bindingViews()
@@ -27,8 +26,6 @@ abstract class BaseActivity<VM: BaseViewModel>: AppCompatActivity() {
     abstract fun setupViews()
 
     abstract fun bindingViews()
-
-    abstract fun initKoinModule()
 
     override fun onDestroy() {
         super.onDestroy()

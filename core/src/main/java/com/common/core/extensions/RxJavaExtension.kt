@@ -90,6 +90,7 @@ fun <T> Consumer<T>.asObserver(): Observer<T> = object : Observer<T> {
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 fun <S, T> takeWhen(@NonNull whenObservable: Observable<T>): ObservableTransformer<S, T> {
     return TakeWhenTransformer<S, T>(whenObservable) as ObservableTransformer<S, T>
 }

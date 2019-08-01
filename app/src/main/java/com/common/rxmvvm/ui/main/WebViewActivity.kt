@@ -1,4 +1,4 @@
-package com.common.rxmvvm
+package com.common.rxmvvm.ui.main
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -8,18 +8,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.common.core.base.BaseActivity
-import com.wesoft.mvvm.main.R
+import com.common.rxmvvm.R
 import kotlinx.android.synthetic.main.activity_web_view.*
-
-//private val loadMainModule by lazy { loadKoinModules(mainModule) }
 
 class WebViewActivity : BaseActivity<WebViewModel>() {
 
     private lateinit var url: String
 
     override fun getLayoutId(): Int = R.layout.activity_web_view
-
-    override fun initKoinModule() = Unit//loadMainModule
 
     override fun setupViews() {
         url = intent.getStringExtra("url")
