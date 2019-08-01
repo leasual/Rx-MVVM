@@ -44,40 +44,47 @@ abstract class BaseRefreshViewModel: BaseViewModel() {
         val dataList = arrayListOf<Any>()
         refreshPublishSubject
             .flatMap { getDataApi().toObservable() }
-            .subscribe({
+            .subscribe{
                 Log.d("test", "onNext= currentPage= $currentPage")
-                if (currentPage == 1) {
-                    dataList.clear()
-                    dataList.addAll(it.data)
-                    dataListPublishSubject.onNext(dataList)
-                    refreshStatePublishSubject.onNext(RefreshState.REFRESH_SUCCESS)
-                    if (it.data.isEmpty()) {
-                        multiStateViewPublishSubject.onNext(MultiStateView.ViewState.EMPTY)
-                    }else {
-                        multiStateViewPublishSubject.onNext(MultiStateView.ViewState.CONTENT)
-                    }
-                }else {
-                    dataList.addAll(it.data)
-                    if (it.data.size <= 10) {
+                if (it.isSuccess) {
+                    Log.d("test", "it.isSuccess()")
+                    if (currentPage == 1) {
+                        dataList.clear()
+                        if (it.getOrNull()?.data != null) {
+                            dataList.addAll(it.getOrNull()!!.data)
+                        }
                         dataListPublishSubject.onNext(dataList)
-                        refreshStatePublishSubject.onNext(RefreshState.NO_MORE_DATA)
+                        refreshStatePublishSubject.onNext(RefreshState.REFRESH_SUCCESS)
+                        if (it.getOrNull()?.data == null || it.getOrNull()!!.data.isEmpty()) {
+                            multiStateViewPublishSubject.onNext(MultiStateView.ViewState.EMPTY)
+                        } else {
+                            multiStateViewPublishSubject.onNext(MultiStateView.ViewState.CONTENT)
+                        }
+                    } else {
+                        if (it.getOrNull()?.data != null) {
+                            dataList.addAll(it.getOrNull()!!.data)
+                        }
+                        if (it.getOrNull()?.data == null || it.getOrNull()!!.data.size <= 10) {
+                            dataListPublishSubject.onNext(dataList)
+                            refreshStatePublishSubject.onNext(RefreshState.NO_MORE_DATA)
+                        } else {
+                            refreshStatePublishSubject.onNext(RefreshState.LOAD_MORE_SUCCESS)
+                        }
+                    }
+                }else if (it.isFailure) {
+                    it.exceptionOrNull()?.printStackTrace()
+                    Log.d("test", "it.isError()")
+                    if (currentPage == 1) {
+                        refreshStatePublishSubject.onNext(RefreshState.REFRESH_SUCCESS)
                     }else {
                         refreshStatePublishSubject.onNext(RefreshState.LOAD_MORE_SUCCESS)
                     }
+                    multiStateViewPublishSubject.onNext(MultiStateView.ViewState.ERROR)
                 }
-            }, {
-                if (currentPage == 1) {
-                    refreshStatePublishSubject.onNext(RefreshState.REFRESH_SUCCESS)
-                }else {
-                    refreshStatePublishSubject.onNext(RefreshState.LOAD_MORE_SUCCESS)
-                }
-                multiStateViewPublishSubject.onNext(MultiStateView.ViewState.ERROR)
-                Log.e("test", "onError")
-                it.printStackTrace()
-            }).disposedBag(dispose)
+            }.disposedBag(dispose)
 
         return RefreshOutputs(refreshStatePublishSubject)
     }
 
-    abstract fun  getDataApi(): Flowable<BaseResponse<List<Any>>>
+    abstract fun  getDataApi(): Flowable<Result<BaseResponse<List<Any>>>>
 }

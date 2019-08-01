@@ -1,6 +1,5 @@
 package com.common.rxmvvm
 
-import android.util.Log
 import com.common.core.base.BaseViewModel
 import com.common.core.extensions.disposedBag
 import com.common.rxmvvm.repository.MainRepository
@@ -22,21 +21,22 @@ class MainViewModel(private val repository: MainRepository): BaseViewModel() {
         inputs.refresh
             .startWith(Unit)
             .flatMap { repository.getTodayList().toObservable() }
-            .subscribe(
-                {
+            .subscribe {
+                if (it.isSuccess && it.getOrNull() != null) {
                     dataList.clear()
                     dataList.add("Android")
-                    dataList.addAll(it.data.androidList)
+                    dataList.addAll(it.getOrNull()!!.data.androidList)
                     dataList.add("iOS")
-                    dataList.addAll(it.data.iOSList)
+                    dataList.addAll(it.getOrNull()!!.data.iOSList)
                     dataList.add("前端")
-                    dataList.addAll(it.data.frontList)
+                    dataList.addAll(it.getOrNull()!!.data.frontList)
                     dataList.add("App")
-                    dataList.addAll(it.data.appList)
+                    dataList.addAll(it.getOrNull()!!.data.appList)
                     feedList.onNext(dataList)
-                },
-                { Log.e("test", "error= ${it.message}") })
-            .disposedBag(dispose)
+                }else {
+
+                }
+            }.disposedBag(dispose)
         return Outputs(feedList)
     }
 }

@@ -1,9 +1,8 @@
 package com.common.core.di
 
+import com.common.core.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.common.core.BuildConfig
-import com.common.core.api.APIService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -36,9 +35,5 @@ val networkModule = module {
             .client(get<OkHttpClient>())
             .baseUrl(BuildConfig.BASE_URL)
             .build()
-    }
-
-    single {
-        get<Retrofit>().create(APIService::class.java)
     }
 }

@@ -1,4 +1,4 @@
-package com.common.core.models
+package com.common.rxmvvm.models
 
 import com.google.gson.annotations.SerializedName
 

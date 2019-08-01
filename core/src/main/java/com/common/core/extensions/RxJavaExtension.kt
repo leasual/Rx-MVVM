@@ -2,6 +2,7 @@ package com.common.core.extensions
 
 import androidx.annotation.NonNull
 import androidx.lifecycle.MediatorLiveData
+import com.common.core.base.BaseResponse
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -98,4 +99,14 @@ class TakeWhenTransformer<S, T>(private val whenObservable: Observable<T>) :
     override fun apply(upstream: Observable<S>): ObservableSource<S> {
         return this.whenObservable.withLatestFrom(upstream, BiFunction { _, s -> s })
     }
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T: BaseResponse<D>, D> Flowable<T>.asBaseRespFlowable(): Flowable<BaseResponse<D>> {
+    return this as (Flowable<BaseResponse<D>>)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T: BaseResponse<D>, D> Flowable<Result<T>>.asListAnyFlowable(): Flowable<Result<BaseResponse<List<Any>>>> {
+    return this as Flowable<Result<BaseResponse<List<Any>>>>
 }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.common.core.extensions.basicDiffUtil
 import com.common.core.extensions.inflate
-import com.common.core.models.FeedData
+import com.common.rxmvvm.models.FeedData
 import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.listitem_feed.view.*
 

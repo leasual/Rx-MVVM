@@ -3,7 +3,7 @@ package com.common.rxmvvm
 import com.common.core.base.BaseActivity
 import com.common.core.base.CommonAdapter
 import com.common.core.extensions.disposedBag
-import com.common.core.models.FeedData
+import com.common.rxmvvm.models.FeedData
 import com.common.rxmvvm.di.mainModule
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.wesoft.mvvm.main.R

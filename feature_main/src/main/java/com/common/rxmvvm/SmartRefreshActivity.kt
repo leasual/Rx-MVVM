@@ -3,8 +3,8 @@ package com.common.rxmvvm
 import androidx.recyclerview.widget.RecyclerView
 import com.common.core.base.BaseRefreshActivity
 import com.common.core.base.CommonAdapter
-import com.common.core.models.FeedData
 import com.common.rxmvvm.di.mainModule
+import com.common.rxmvvm.models.FeedData
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.wesoft.mvvm.main.R
 import kotlinx.android.synthetic.main.activity_smart_refresh.*

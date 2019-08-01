@@ -27,7 +27,7 @@ import retrofit2.HttpException
  */
 abstract class NetworkBoundResource<ResultType, RequestType>(val app: Application) {
 
-    private val flowableOnSubscribe: FlowableOnSubscribe<BaseResponse<ResultType>>
+    private val flowableOnSubscribe: FlowableOnSubscribe<Result<BaseResponse<ResultType>>>
 
     init {
 
@@ -40,11 +40,11 @@ abstract class NetworkBoundResource<ResultType, RequestType>(val app: Applicatio
                     FlowableOnSubscribe { emitter ->
                         Log.d("test", "get data from cache")
                         val cacheData = loadFromDB()
-                        cacheData?.let { emitter.onNext(BaseResponse(false, cacheData)) }
+                        cacheData?.let { emitter.onNext(Result.success(BaseResponse(Any(), cacheData))) }
                         if (shouldFetch(cacheData)) {
                             fetchFromNetwork(emitter)
                         } else {
-                            emitter.onNext(BaseResponse(false, Any() as ResultType))
+                            emitter.onNext(Result.success(BaseResponse(Any(), Any() as ResultType)))
                         }
                     }
                 } else {
@@ -57,8 +57,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>(val app: Applicatio
                 flowableOnSubscribe = if (shouldLoadFromCache()) {
                     FlowableOnSubscribe { emitter ->
                         val cacheData = loadFromDB()
-                        cacheData?.let { emitter.onNext(BaseResponse(false, cacheData)) }
-                            ?: emitter.onNext(BaseResponse(false, Any() as ResultType))
+                        cacheData?.let { emitter.onNext(Result.success(BaseResponse(Any(), cacheData))) }
+                            ?: emitter.onNext(Result.success(BaseResponse(Any(), Any() as ResultType)))
                     }
                 } else {
                     FlowableOnSubscribe { emitter ->
@@ -72,35 +72,34 @@ abstract class NetworkBoundResource<ResultType, RequestType>(val app: Applicatio
 
     @SuppressLint("CheckResult")
     @Suppress("UNCHECKED_CAST")
-    private fun fetchFromNetwork(emitter: FlowableEmitter<BaseResponse<ResultType>>) {
+    private fun fetchFromNetwork(emitter: FlowableEmitter<Result<BaseResponse<ResultType>>>) {
         callApi()
-            // .flatMap { (it as BaseResponse<ResultType>).filterData(isFilterSpace, isRegister) }
             .retryWhen(RetryWithDelay(3))
-            .flatMap {
-                val data = it
-                if (!data.code) {
-                    data.data?.let {
-                        cache(data.data)
+            .flatMap { resp ->
+                if ((resp.code is String && resp.code == "200") || (resp.code is Int && resp.code == 0) ||
+                    (resp.code is Boolean && resp.code == false)) {
+                    resp.data?.let {
+                        cache(resp.data)
                     }
                 }
-                Flowable.just(it)
+                Flowable.just(resp)
             }
             .ioMain()
             .subscribe(
-                { data ->
+                { resp ->
                     /**
                      *  这里请注意，Rxjava 2.x之后不支持发送null的数据，
                      *  所以当data.data也就是返回的数据为空时，需要判定，如果为空
                      *  这是我们需要给他赋予一个新的值，才能发送。并且需要在APIService中定义返回类型为Any
                      */
-                    if (!data.code) {
-                        data.data?.let {
-                            emitter.onNext(data)
+                    if ((resp.code is String && resp.code == "200") || (resp.code is Int && resp.code == 0) ||
+                        (resp.code is Boolean && resp.code == false)) {
+                        resp.data.let {
+                            emitter.onNext(Result.success(resp))
                         }
-                            ?: emitter.onNext(BaseResponse(false, Any() as ResultType))
                         Log.d("test", "get data from network")
                     } else {
-                        emitter.onError(APIException("", -1))
+                        emitter.onNext(Result.failure(APIException("", -1)))
                     }
                 },
                 { throwable ->
@@ -121,7 +120,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(val app: Applicatio
                             app.applicationContext.toast("数据异常，请重试")
                         }
                     }
-                    emitter.onError(throwable)
+                    emitter.onNext(Result.failure(throwable))
                 },
                 {
                     emitter.onComplete()
@@ -139,7 +138,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(val app: Applicatio
 
     protected abstract fun callApi(): Flowable<BaseResponse<ResultType>>
 
-    fun asFlowable(): Flowable<BaseResponse<ResultType>> {
+    fun asFlowable(): Flowable<Result<BaseResponse<ResultType>>> {
         return FlowableCreate(flowableOnSubscribe, BackpressureStrategy.LATEST)
             .ioMain()
     }
