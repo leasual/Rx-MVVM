@@ -25,7 +25,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
             LoginViewModel.Inputs(
                 etUser.textChanges().map { it.toString() },
                 etPassword.textChanges().map { it.toString() },
-                bt_login.clicks()
+                btLogin.clicks()
             )
         )
 
