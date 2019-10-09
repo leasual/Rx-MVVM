@@ -24,17 +24,17 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun bindingViews() {
-        val outputs = viewModel.transforms(MainViewModel.Inputs(srl_swipe.refreshes()))
+        val outputs = viewModel.transforms(MainViewModel.Inputs(srlSwipe.refreshes()))
         outputs.feedList.subscribe{
             adapter.dataList = it
-            srl_swipe.isRefreshing = false
+            srlSwipe.isRefreshing = false
         }.disposedBag(dispose)
     }
 
     private fun initFeedList() {
         adapter = multiItemAdapter
-        rv_feed.adapter = adapter
-        srl_swipe.isRefreshing = true
+        rvFeed.adapter = adapter
+        srlSwipe.isRefreshing = true
     }
 
     //多个
@@ -42,11 +42,11 @@ class MainActivity : BaseActivity<MainViewModel>() {
         arrayOf(String::class.java, FeedData::class.java), { itemView, model, _ ->
             when (model) {
                 is FeedData -> {
-                    itemView.tv_desc.text = model.desc
-                    itemView.tv_type.text = model.type
-                    itemView.tv_date.text = model.publishedAt
+                    itemView.tvDesc.text = model.desc
+                    itemView.tvType.text = model.type
+                    itemView.tvDate.text = model.publishedAt
                 }
-                is String -> itemView.tv_title.text = model
+                is String -> itemView.tvTitle.text = model
             }
         }, { model, _ ->
             when (model) {

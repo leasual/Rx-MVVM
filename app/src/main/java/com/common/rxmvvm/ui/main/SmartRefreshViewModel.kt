@@ -8,6 +8,10 @@ import io.reactivex.Flowable
 
 class SmartRefreshViewModel(private val repository: MainRepository): BaseRefreshViewModel() {
 
+    init {
+        totalPages = 2
+    }
+
     override fun getDataApi(): Flowable<Result<BaseResponse<List<Any>>>> {
         return repository.getCategoryList("Android", currentPage).asListAnyFlowable()
     }

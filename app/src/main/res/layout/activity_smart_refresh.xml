@@ -8,11 +8,11 @@
         tools:context="com.common.rxmvvm.ui.main.SmartRefreshActivity">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/srl_refresh"
+            android:id="@+id/srlRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_feed"
+                android:id="@+id/rvFeed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="16dp"

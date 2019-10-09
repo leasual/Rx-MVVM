@@ -14,6 +14,7 @@ abstract class BaseRefreshViewModel: BaseViewModel() {
     private val refreshStatePublishSubject = PublishSubject.create<RefreshState>()
     private val refreshPublishSubject = PublishSubject.create<Int>()
     protected var currentPage = 1
+    protected var totalPages = 1
 
     enum class RefreshState {
         REFRESH_SUCCESS,
@@ -64,7 +65,7 @@ abstract class BaseRefreshViewModel: BaseViewModel() {
                         if (it.getOrNull()?.data != null) {
                             dataList.addAll(it.getOrNull()!!.data)
                         }
-                        if (it.getOrNull()?.data == null || it.getOrNull()!!.data.size <= 10) {
+                        if (currentPage >= totalPages) {
                             dataListPublishSubject.onNext(dataList)
                             refreshStatePublishSubject.onNext(RefreshState.NO_MORE_DATA)
                         } else {

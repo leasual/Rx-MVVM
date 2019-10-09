@@ -7,11 +7,11 @@
         tools:context="com.common.rxmvvm.ui.main.MainActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_swipe"
+            android:id="@+id/srlSwipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_feed"
+                android:id="@+id/rvFeed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">

@@ -32,9 +32,9 @@ class FeedAdapter(private val listener: (FeedData) -> Unit): RecyclerView.Adapte
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         fun bind(feedData: FeedData) {
-            itemView.tv_desc.text = feedData.desc
-            itemView.tv_type.text = feedData.type
-            itemView.tv_date.text = feedData.publishedAt
+            itemView.tvDesc.text = feedData.desc
+            itemView.tvType.text = feedData.type
+            itemView.tvDate.text = feedData.publishedAt
         }
     }
 }

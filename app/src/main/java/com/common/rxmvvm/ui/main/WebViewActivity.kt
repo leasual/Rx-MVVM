@@ -28,9 +28,9 @@ class WebViewActivity : BaseActivity<WebViewModel>() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
-        wv_webview.webChromeClient = CustomChromeClient(srl_swipe)
-        wv_webview.webViewClient = CustomWebClient()
-        val settings = wv_webview.settings
+        wvWebView.webChromeClient = CustomChromeClient(srlSwipe)
+        wvWebView.webViewClient = CustomWebClient()
+        val settings = wvWebView.settings
         settings.javaScriptEnabled = true
         settings.cacheMode = WebSettings.LOAD_DEFAULT
         settings.builtInZoomControls = true
@@ -41,9 +41,9 @@ class WebViewActivity : BaseActivity<WebViewModel>() {
         settings.javaScriptCanOpenWindowsAutomatically = true
         settings.defaultTextEncodingName = "UTF-8"
 
-        srl_swipe.isRefreshing = true
-        wv_webview.loadUrl(url)
-        srl_swipe.setOnRefreshListener { wv_webview.loadUrl(url) }
+        srlSwipe.isRefreshing = true
+        wvWebView.loadUrl(url)
+        srlSwipe.setOnRefreshListener { wvWebView.loadUrl(url) }
     }
 
     class CustomWebClient: WebViewClient() {

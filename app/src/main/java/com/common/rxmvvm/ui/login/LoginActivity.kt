@@ -23,14 +23,14 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
     override fun bindingViews() {
         val output = viewModel.transforms(
             LoginViewModel.Inputs(
-                et_user.textChanges().map { it.toString() },
-                et_password.textChanges().map { it.toString() },
+                etUser.textChanges().map { it.toString() },
+                etPassword.textChanges().map { it.toString() },
                 bt_login.clicks()
             )
         )
 
         output.description.subscribe  {
-            tv_show.text = it
+            tvShow.text = it
         }.disposedBag(dispose)
 
         output.loginSuccess.subscribe {

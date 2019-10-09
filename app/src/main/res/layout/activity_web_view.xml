@@ -8,11 +8,11 @@
         tools:context=".main.WebViewActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_swipe"
+            android:id="@+id/srlSwipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <WebView
-                android:id="@+id/wv_webview"
+                android:id="@+id/wvWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
         </WebView>

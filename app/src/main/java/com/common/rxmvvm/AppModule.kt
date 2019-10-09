@@ -24,12 +24,12 @@ val splashModule = module {
 }
 
 val loginModule = module {
-    factory { LoginRepository(get(), get()) }
+    single { LoginRepository(get(), get()) }
     viewModel { LoginViewModel(get()) }
 }
 
 val mainModule = module {
-    factory { MainRepository(get(), get()) }
+    single { MainRepository(get(), get()) }
     viewModel { MainViewModel(get()) }
     viewModel { WebViewModel() }
     viewModel { SmartRefreshViewModel(get()) }
