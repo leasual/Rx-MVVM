@@ -4,6 +4,7 @@ import com.common.core.di.networkModule
 import com.common.rxmvvm.api.APIService
 import com.common.rxmvvm.repository.LoginRepository
 import com.common.rxmvvm.repository.MainRepository
+import com.common.rxmvvm.ui.login.Login1ViewModel
 import com.common.rxmvvm.ui.login.LoginViewModel
 import com.common.rxmvvm.ui.main.MainViewModel
 import com.common.rxmvvm.ui.main.SmartRefreshViewModel
@@ -38,7 +39,7 @@ val splashModule = module {
 
 val loginModule = module {
     single { LoginRepository(get(), get()) }
-    viewModel { LoginViewModel(get()) }
+    viewModel { Login1ViewModel(get()) }
 }
 
 val mainModule = module {

@@ -8,6 +8,9 @@ object Activities {
     object Login: AddressableActivity {
         override val className: String = "$packageName.ui.login.LoginActivity"
     }
+    object Login1: AddressableActivity {
+        override val className: String = "$packageName.ui.login.Login1Activity"
+    }
     object Main: AddressableActivity {
         override val className: String = "$packageName.ui.main.MainActivity"
     }
