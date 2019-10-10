@@ -27,13 +27,4 @@ val networkModule = module {
             .serializeNulls()
             .create()
     }
-
-    single {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(get<OkHttpClient>())
-            .baseUrl(BuildConfig.BASE_URL)
-            .build()
-    }
 }
