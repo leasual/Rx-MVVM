@@ -5,8 +5,9 @@ import com.common.core.base.BaseResponse
 import com.common.core.extensions.asListAnyFlowable
 import com.common.rxmvvm.repository.MainRepository
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class SmartRefreshViewModel(private val repository: MainRepository): BaseRefreshViewModel() {
+class SmartRefreshViewModel@Inject constructor(): BaseRefreshViewModel<MainRepository>() {
 
     init {
         totalPages = 2

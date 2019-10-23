@@ -5,8 +5,9 @@ import com.common.core.extensions.disposedBag
 import com.common.rxmvvm.repository.MainRepository
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
-class MainViewModel(private val repository: MainRepository): BaseViewModel() {
+class MainViewModel@Inject constructor(): BaseViewModel<MainRepository>() {
 
     data class Inputs(
         var refresh: Observable<Unit>

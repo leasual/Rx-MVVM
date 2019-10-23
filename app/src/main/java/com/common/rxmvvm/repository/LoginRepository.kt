@@ -1,14 +1,16 @@
 package com.common.rxmvvm.repository
 
-import android.app.Application
+import com.common.core.base.BaseRepository
 import com.common.core.base.BaseResponse
 import com.common.core.extensions.asBaseRespFlowable
 import com.common.core.vo.NetworkBoundResource
+import com.common.rxmvvm.App
 import com.common.rxmvvm.api.APIService
 import com.common.rxmvvm.models.TodayResp
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class LoginRepository(private val apiService: APIService, private val app: Application) {
+class LoginRepository@Inject constructor(val app: App, val apiService: APIService): BaseRepository() {
 
 
     fun getTodayList(): Flowable<Result<BaseResponse<TodayResp>>> {

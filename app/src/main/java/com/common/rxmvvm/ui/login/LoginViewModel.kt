@@ -8,8 +8,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
-class LoginViewModel(private val repository: LoginRepository): BaseViewModel() {
+class LoginViewModel@Inject constructor(): BaseViewModel<LoginRepository>() {
 
     data class Inputs (
         var userName: Observable<String>,

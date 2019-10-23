@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -48,9 +49,16 @@ dependencies {
 
     api 'androidx.multidex:multidex:2.0.1'
     //
-    api 'androidx.core:core-ktx:1.0.2'
+    api 'androidx.core:core-ktx:1.1.0'
     // ViewModel and LiveData
-    api "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    api "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    //life cycle
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.1.0'
+    api 'androidx.lifecycle:lifecycle-runtime:2.1.0'
+    api 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.1.0'
+    api 'androidx.arch.core:core-testing:2.1.0'
+
     //RxJava
     api "io.reactivex.rxjava2:rxjava:2.2.10"
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -65,12 +73,19 @@ dependencies {
     //Glide
     api 'com.github.bumptech.glide:glide:4.9.0'
 
+    //Dagger2
+    api 'com.google.dagger:dagger:2.24'
+    api 'com.google.dagger:dagger-android:2.24'
+    api 'com.google.dagger:dagger-android-support:2.24' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-compiler:2.24'
+    kapt 'com.google.dagger:dagger-android-processor:2.24'
+
     // Koin for Android
-    api 'org.koin:koin-android:2.0.1'
-    // or Koin for Lifecycle scoping
-    api 'org.koin:koin-androidx-scope:2.0.1'
-    // or Koin for Android Architecture ViewModel
-    api 'org.koin:koin-androidx-viewmodel:2.0.1'
+//    api 'org.koin:koin-android:2.0.1'
+//    // or Koin for Lifecycle scoping
+//    api 'org.koin:koin-androidx-scope:2.0.1'
+//    // or Koin for Android Architecture ViewModel
+//    api 'org.koin:koin-androidx-viewmodel:2.0.1'
     // Rerofit
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'

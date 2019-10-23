@@ -10,7 +10,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import io.reactivex.subjects.PublishSubject
 
-abstract class BaseRefreshActivity<VM: BaseRefreshViewModel>: BaseActivity<VM>() {
+abstract class BaseRefreshActivity<VM: BaseRefreshViewModel<*>>: BaseActivity<VM>() {
     private lateinit var smartRefreshLayout: SmartRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private var multiStateView: MultiStateView? = null

@@ -1,26 +1,16 @@
 package com.common.rxmvvm
 
-import android.app.Application
-import android.content.Context
-import androidx.multidex.MultiDex
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.logger.AndroidLogger
-import org.koin.core.context.startKoin
+import com.common.core.BaseApplication
+import com.common.rxmvvm.di.DaggerAppComponent
 
-class App: Application() {
+class App: BaseApplication() {
+
+
+    override fun injectDaggerApp() = DaggerAppComponent.factory().create(this).inject(this)
 
     override fun onCreate() {
         super.onCreate()
-        //init DI
-        startKoin {
-            logger(AndroidLogger())
-            androidContext(this@App.applicationContext)
-            modules(appModule)
-        }
+
     }
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }
 }

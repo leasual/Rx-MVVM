@@ -7,7 +7,7 @@ import com.kennyc.view.MultiStateView
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
 
-abstract class BaseRefreshViewModel: BaseViewModel() {
+abstract class BaseRefreshViewModel<R: BaseRepository>: BaseViewModel<R>() {
 
     open val dataListPublishSubject = PublishSubject.create<MutableList<Any>>()
     open val multiStateViewPublishSubject = PublishSubject.create<MultiStateView.ViewState>()
